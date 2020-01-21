@@ -54,9 +54,9 @@ function vegito2 () {
     vegito.setPosition(15, 90)
     controller.moveSprite(vegito)
     scene.cameraFollowSprite(vegito)
-    info.setLife(3)
+    info.player2.setLife(3)
 }
-function Projectile2 () {
+function Projectile3 () {
     projectile = sprites.createProjectileFromSprite(img`
 . . . . . . . . . . . . . . . . 
 . . . . . . . . . . . . . . . . 
@@ -75,8 +75,10 @@ function Projectile2 () {
 . . . . . . . . . . . . . . . . 
 . . . . . . . . . . . . . . . . 
 `, vegito, 50, 100)
+    projectile.follow(Gogeta)
 }
 function Gogeta2 () {
+    // Making a sprite is a custom character design
     Gogeta = sprites.create(img`
 . . . . . . . . . . . . . f . . . . . f . . . . . . . . . . . . . . . 
 . . . . . . . . . . f . . f f . . . . f f . . . . . . . . . . . . . . 
@@ -129,8 +131,29 @@ function Gogeta2 () {
 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 
 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 
 `, SpriteKind.Enemy)
-    Gogeta.follow(vegito, 50)
+    Gogeta.follow(vegito, 75)
     info.setLife(3)
+}
+function enemyprojectile () {
+    projectile2 = sprites.createProjectileFromSprite(img`
+. . . . 1 1 1 1 1 1 1 . . . . . 
+. . . 1 8 9 9 8 9 9 8 1 . . . . 
+. . 1 8 9 9 9 9 9 9 9 8 1 . . . 
+. 1 9 8 9 9 9 9 9 9 9 8 9 1 . . 
+. 1 8 9 9 9 9 9 9 9 9 9 8 1 . . 
+. 1 8 8 9 9 9 9 9 9 9 8 8 1 . . 
+. 1 9 9 8 9 9 9 9 9 8 9 9 1 . . 
+. 1 3 3 3 c a a a a 3 3 3 1 . . 
+. 1 3 3 3 3 c c c a 3 3 3 1 . . 
+. 1 3 3 3 3 c c a 3 3 3 c 1 . . 
+. . 1 c 3 3 3 a 3 3 c c 1 . . . 
+. . . 1 c c a a 3 c c 1 . . . . 
+. . . . 1 1 1 1 1 1 1 . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+`, Gogeta, 50, 100)
+    projectile2.follow(vegito)
 }
 function background () {
     scene.setBackgroundImage(img`
@@ -301,18 +324,30 @@ sprites.onOverlap(SpriteKind.Enemy, SpriteKind.Player, function (sprite, otherSp
 })
 sprites.onOverlap(SpriteKind.Projectile, SpriteKind.Enemy, function (sprite, otherSprite) {
     info.changeLifeBy(-1)
-    scene.cameraShake(4, 500)
 })
-controller.anyButton.onEvent(ControllerButtonEvent.Pressed, function () {
-    projectile.follow(Gogeta)
-})
-info.onLifeZero(function () {
+info.player2.onLifeZero(function () {
     game.over(false)
 })
-let Gogeta: Sprite = null
+controller.A.onEvent(ControllerButtonEvent.Pressed, function () {
+    Projectile3()
+    enemyprojectile()
+})
+info.onLifeZero(function () {
+    game.over(true)
+})
+let projectile2: Sprite = null
 let projectile: Sprite = null
+let Gogeta: Sprite = null
 let vegito: Sprite = null
 game.splash("ベジートvsゴジータ", "Vegito Vs. Gogeta")
 background()
 vegito2()
 Gogeta2()
+for (let index = 0; index < 4; index++) {
+    vegito.x += Math.randomRange(0, 25)
+    Gogeta.x += Math.randomRange(0, 10)
+    pause(100)
+}
+game.onUpdate(function () {
+    scene.cameraShake(3, 200)
+})
