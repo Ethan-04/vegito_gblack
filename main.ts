@@ -1,4 +1,5 @@
 function vegito2 () {
+    // Making character design for my sprite
     vegito = sprites.create(img`
 . . . . . . . . f f f f . . . f . . . . . . . . . . . . . . . . . . . 
 . . . . . . . . f 9 9 8 f f . f f . . f . . . . . . . . . . . . . . . 
@@ -54,7 +55,6 @@ function vegito2 () {
     vegito.setPosition(15, 90)
     controller.moveSprite(vegito)
     scene.cameraFollowSprite(vegito)
-    info.player2.setLife(3)
 }
 function Projectile2 () {
     projectile = sprites.createProjectileFromSprite(img`
@@ -75,7 +75,7 @@ function Projectile2 () {
 . . . . . . . . . . . . . . . . 
 . . . . . . . . . . . . . . . . 
 `, vegito, 50, 100)
-    projectile.follow(Gogeta)
+    projectile.follow(Gogeta, 200)
 }
 function Gogeta2 () {
     // Making a sprite is a custom character design
@@ -131,9 +131,35 @@ function Gogeta2 () {
 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 
 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 
 `, SpriteKind.Enemy)
+    // Create a speed limit on a character
     Gogeta.follow(vegito, 75)
-    info.setLife(3)
+    // Maximum life set for the enemy
+    info.setLife(2000)
 }
+function spirit_bomb () {
+    projectile3 = sprites.createProjectileFromSprite(img`
+. . . . . . . . . . . . . . . . 
+. . . . 9 9 9 9 9 9 9 . . . . . 
+. . 9 9 1 9 9 1 9 9 1 9 9 . . . 
+. 9 1 9 9 9 9 9 9 9 9 9 1 9 . . 
+. 9 9 9 1 1 9 9 9 9 9 9 9 9 . . 
+9 1 9 9 1 9 9 9 9 9 9 9 9 1 9 . 
+9 9 9 9 9 9 9 9 1 9 9 9 9 9 9 . 
+9 9 9 9 9 9 9 9 9 1 9 9 9 1 9 . 
+9 1 9 9 9 1 9 9 9 1 9 9 9 9 9 . 
+9 9 9 9 9 9 1 9 1 1 9 9 9 1 9 . 
+9 9 9 9 9 9 9 1 1 9 9 9 9 9 9 . 
+9 1 9 9 9 9 9 9 9 9 9 1 9 1 9 . 
+. 9 9 9 9 1 9 9 9 9 9 9 9 9 . . 
+. 9 1 9 9 9 9 9 9 9 9 9 1 9 . . 
+. . 9 9 1 9 9 9 9 9 1 9 9 . . . 
+. . . . 9 9 9 9 9 9 9 . . . . . 
+`, vegito, 50, 100)
+    projectile3.follow(Gogeta, 100)
+}
+controller.B.onEvent(ControllerButtonEvent.Pressed, function () {
+    spirit_bomb()
+})
 function background () {
     scene.setBackgroundImage(img`
 c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c 
@@ -298,19 +324,26 @@ c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c 
 c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c 
 `)
 }
+// When the enemy overlaps my character I loose the
+// game
 sprites.onOverlap(SpriteKind.Enemy, SpriteKind.Player, function (sprite, otherSprite) {
-    info.changeLifeBy(-1)
-})
-sprites.onOverlap(SpriteKind.Projectile, SpriteKind.Enemy, function (sprite, otherSprite) {
-    info.changeLifeBy(-1)
-})
-info.player2.onLifeZero(function () {
     game.over(false)
 })
+// When my projectile overlaps the enemy they loose
+// health
+sprites.onOverlap(SpriteKind.Projectile, SpriteKind.Enemy, function (sprite, otherSprite) {
+    info.changeLifeBy(-1)
+    projectile.destroy(effects.blizzard, 1000)
+    vegito.say("Yoshaaa")
+})
+// When pressed my sprite sends an attack towards the
+// enemy
 controller.A.onEvent(ControllerButtonEvent.Pressed, function () {
-    enemyprojectile()
+    Projectile2()
 })
 function enemyprojectile () {
+    // Creating a sprite for the projectile gives it
+    // design
     projectile2 = sprites.createProjectileFromSprite(img`
 . . . . 1 1 1 1 1 1 1 . . . . . 
 . . . 1 8 9 9 8 9 9 8 1 . . . . 
@@ -331,18 +364,22 @@ function enemyprojectile () {
 `, Gogeta, 50, 100)
     projectile2.follow(vegito)
 }
+// Game ends at zero health for the enemy
 info.onLifeZero(function () {
     game.over(true)
 })
 let projectile2: Sprite = null
+let projectile3: Sprite = null
 let Gogeta: Sprite = null
 let projectile: Sprite = null
 let vegito: Sprite = null
 // Displays text on screen
-game.splash("ベジートvsゴジータ", "Vegito Vs. Gogeta")
+game.splash("ベジートvsゴジータ", "click A and B to attack")
+// Making code requires you to call the function.
 background()
 vegito2()
 Gogeta2()
+// Shakes camera as game goes on
 game.onUpdate(function () {
     scene.cameraShake(3, 200)
 })
