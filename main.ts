@@ -136,27 +136,6 @@ function Gogeta2 () {
     // Maximum life set for the enemy
     info.setLife(2000)
 }
-function spirit_bomb () {
-    projectile3 = sprites.createProjectileFromSprite(img`
-. . . . . . . . . . . . . . . . 
-. . . . 9 9 9 9 9 9 9 . . . . . 
-. . 9 9 1 9 9 1 9 9 1 9 9 . . . 
-. 9 1 9 9 9 9 9 9 9 9 9 1 9 . . 
-. 9 9 9 1 1 9 9 9 9 9 9 9 9 . . 
-9 1 9 9 1 9 9 9 9 9 9 9 9 1 9 . 
-9 9 9 9 9 9 9 9 1 9 9 9 9 9 9 . 
-9 9 9 9 9 9 9 9 9 1 9 9 9 1 9 . 
-9 1 9 9 9 1 9 9 9 1 9 9 9 9 9 . 
-9 9 9 9 9 9 1 9 1 1 9 9 9 1 9 . 
-9 9 9 9 9 9 9 1 1 9 9 9 9 9 9 . 
-9 1 9 9 9 9 9 9 9 9 9 1 9 1 9 . 
-. 9 9 9 9 1 9 9 9 9 9 9 9 9 . . 
-. 9 1 9 9 9 9 9 9 9 9 9 1 9 . . 
-. . 9 9 1 9 9 9 9 9 1 9 9 . . . 
-. . . . 9 9 9 9 9 9 9 . . . . . 
-`, vegito, 50, 100)
-    projectile3.follow(Gogeta, 100)
-}
 controller.B.onEvent(ControllerButtonEvent.Pressed, function () {
     spirit_bomb()
 })
@@ -329,6 +308,27 @@ c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c 
 sprites.onOverlap(SpriteKind.Enemy, SpriteKind.Player, function (sprite, otherSprite) {
     game.over(false)
 })
+function spirit_bomb () {
+    projectile3 = sprites.createProjectileFromSprite(img`
+. . . . . . . . . . . . . . . . 
+. . . . 9 9 9 9 9 9 9 . . . . . 
+. . 9 9 1 9 9 1 9 9 1 9 9 . . . 
+. 9 1 9 9 9 9 9 9 9 9 9 1 9 . . 
+. 9 9 9 1 1 9 9 9 9 9 9 9 9 . . 
+9 1 9 9 1 9 9 9 9 9 9 9 9 1 9 . 
+9 9 9 9 9 9 9 9 1 9 9 9 9 9 9 . 
+9 9 9 9 9 9 9 9 9 1 9 9 9 1 9 . 
+9 1 9 9 9 1 9 9 9 1 9 9 9 9 9 . 
+9 9 9 9 9 9 1 9 1 1 9 9 9 1 9 . 
+9 9 9 9 9 9 9 1 1 9 9 9 9 9 9 . 
+9 1 9 9 9 9 9 9 9 9 9 1 9 1 9 . 
+. 9 9 9 9 1 9 9 9 9 9 9 9 9 . . 
+. 9 1 9 9 9 9 9 9 9 9 9 1 9 . . 
+. . 9 9 1 9 9 9 9 9 1 9 9 . . . 
+. . . . 9 9 9 9 9 9 9 . . . . . 
+`, vegito, 50, 100)
+    projectile3.follow(Gogeta, 100)
+}
 // When my projectile overlaps the enemy they loose
 // health
 sprites.onOverlap(SpriteKind.Projectile, SpriteKind.Enemy, function (sprite, otherSprite) {
