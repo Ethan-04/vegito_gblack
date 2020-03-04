@@ -1,5 +1,4 @@
 function vegito2 () {
-    // Making character design for my sprite
     vegito = sprites.create(img`
 . . . . . . . . f f f f . . . f . . . . . . . . . . . . . . . . . . . 
 . . . . . . . . f 9 9 8 f f . f f . . f . . . . . . . . . . . . . . . 
@@ -78,7 +77,6 @@ function Projectile2 () {
     projectile.follow(Gogeta, 200)
 }
 function Gogeta2 () {
-    // Making a sprite is a custom character design
     Gogeta = sprites.create(img`
 . . . . . . . . . . . . . f . . . . . f . . . . . . . . . . . . . . . 
 . . . . . . . . . . f . . f f . . . . f f . . . . . . . . . . . . . . 
@@ -94,14 +92,14 @@ function Gogeta2 () {
 . . . . . . . f 8 9 f 8 f 8 9 f 9 8 f 9 f f f 8 f . . . . . . . . . . 
 . . . . . . . f 8 9 8 f 9 f 9 9 f 9 8 f 8 8 8 f . . . . . . . . . . . 
 . . . . . f f f f 8 9 8 f 9 f 9 9 f 9 9 9 9 9 8 f . . . . . . . . . . 
-. . . . . . f 8 9 f 8 f d d d d d f d d f f 9 9 8 f . . . . . . . . . 
-. . . . . . . f 8 9 8 f d d d d d d d d d d f 8 9 f . . . . . . . . . 
-. . . . . . . . f 8 f f d 1 f f d d d d d d f f 8 f . . . . . . . . . 
-. . . . . . . . f f d f d 1 1 9 f d d d d f f . f . . . . . . . . . . 
-. . . . . . . . . f d d d d d d d d d d f f . . f . . . . . . . . . . 
-. . . . . . . . . f f f d d d d d d d d d f . . . . . . . . . . . . . 
-. . . . . . . . f f f f f d d d d d d d f . . . . . . . . . . . . . . 
-. . . . . . . f 5 5 5 f f f f d d d d f f f . . . . . . . . . . . . . 
+. . . . . . f 8 9 f 8 f f f f f f f f f f f 9 9 8 f . . . . . . . . . 
+. . . . . . . f 8 9 8 f f f f f f f f f f f f 8 9 f . . . . . . . . . 
+. . . . . . . . f 8 1 1 1 f f f f f f f f f f f 8 f . . . . . . . . . 
+. . . . . . . . f f 1 f f 1 1 1 f 1 f f 1 f f . f . . . . . . . . . . 
+. . . . . . . . . f 1 1 f 1 f 1 f 1 f 1 f 1 . . f . . . . . . . . . . 
+. . . . . . . . . f 1 f f 1 1 1 f 1 f 1 1 1 . . . . . . . . . . . . . 
+. . . . . . . . f f 1 f f 1 f 1 f 1 f 1 f 1 . . . . . . . . . . . . . 
+. . . . . . . f 5 5 5 f f 1 1 1 f 1 1 f f f . . . . . . . . . . . . . 
 . . . . . . f 5 5 5 5 5 f d d f f f f d f 5 f . . . . . . . . . . . . 
 . . . . . . f 5 f f 5 5 5 f f d d d f d f 5 5 f . . . . . . . . . . . 
 . . . . . . f f f d f 5 5 f f d d d d d b f 5 f . . . . . . . . . . . 
@@ -131,9 +129,7 @@ function Gogeta2 () {
 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 
 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 
 `, SpriteKind.Enemy)
-    // Create a speed limit on a character
     Gogeta.follow(vegito, 75)
-    // Maximum life set for the enemy
     info.setLife(2000)
 }
 controller.B.onEvent(ControllerButtonEvent.Pressed, function () {
@@ -303,8 +299,6 @@ c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c 
 c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c 
 `)
 }
-// When the enemy overlaps my character I loose the
-// game
 sprites.onOverlap(SpriteKind.Enemy, SpriteKind.Player, function (sprite, otherSprite) {
     game.over(false)
 })
@@ -329,57 +323,34 @@ function spirit_bomb () {
 `, vegito, 50, 100)
     projectile3.follow(Gogeta, 100)
 }
-// When my projectile overlaps the enemy they loose
-// health
 sprites.onOverlap(SpriteKind.Projectile, SpriteKind.Enemy, function (sprite, otherSprite) {
     info.changeLifeBy(-1)
     projectile.destroy(effects.blizzard, 1000)
     vegito.say("Yoshaaa")
 })
-// When pressed my sprite sends an attack towards the
-// enemy
 controller.A.onEvent(ControllerButtonEvent.Pressed, function () {
     Projectile2()
 })
-function enemyprojectile () {
-    // Creating a sprite for the projectile gives it
-    // design
-    projectile2 = sprites.createProjectileFromSprite(img`
-. . . . 1 1 1 1 1 1 1 . . . . . 
-. . . 1 8 9 9 8 9 9 8 1 . . . . 
-. . 1 8 9 9 9 9 9 9 9 8 1 . . . 
-. 1 9 8 9 9 9 9 9 9 9 8 9 1 . . 
-. 1 8 9 9 9 9 9 9 9 9 9 8 1 . . 
-. 1 8 8 9 9 9 9 9 9 9 8 8 1 . . 
-. 1 9 9 8 9 9 9 9 9 8 9 9 1 . . 
-. 1 3 3 3 c a a a a 3 3 3 1 . . 
-. 1 3 3 3 3 c c c a 3 3 3 1 . . 
-. 1 3 3 3 3 c c a 3 3 3 c 1 . . 
-. . 1 c 3 3 3 a 3 3 c c 1 . . . 
-. . . 1 c c a a 3 c c 1 . . . . 
-. . . . 1 1 1 1 1 1 1 . . . . . 
-. . . . . . . . . . . . . . . . 
-. . . . . . . . . . . . . . . . 
-. . . . . . . . . . . . . . . . 
-`, Gogeta, 50, 100)
-    projectile2.follow(vegito)
-}
-// Game ends at zero health for the enemy
 info.onLifeZero(function () {
     game.over(true)
+    if (info.life() == 0) {
+    	
+    } else if (false) {
+    	
+    } else {
+    	
+    }
 })
-let projectile2: Sprite = null
 let projectile3: Sprite = null
 let Gogeta: Sprite = null
 let projectile: Sprite = null
 let vegito: Sprite = null
-// Displays text on screen
-game.splash("ベジートvsゴジータ", "click A and B to attack")
-// Making code requires you to call the function.
+let list = [1, 2]
+game.splash("Use A and B to attack", "Future Business Leaders Of America")
 background()
 vegito2()
 Gogeta2()
-// Shakes camera as game goes on
-game.onUpdate(function () {
+game.onUpdateInterval(500, function () {
     scene.cameraShake(3, 200)
+    scene.backgroundImage().flipX()
 })
