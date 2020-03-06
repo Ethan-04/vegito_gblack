@@ -52,6 +52,7 @@ function vegito2 () {
 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 
 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 
 `, SpriteKind.Player)
+    text_list = ["Hello!", "I'm Vegito", "c", ""]
     vegito.setPosition(15, 90)
     controller.moveSprite(vegito)
     scene.cameraFollowSprite(vegito)
@@ -338,6 +339,7 @@ info.onLifeZero(function () {
 let projectile3: Sprite = null
 let Gogeta: Sprite = null
 let projectile: Sprite = null
+let text_list: string[] = []
 let vegito: Sprite = null
 // Displays a text on screen
 game.splash("Use A and B to attack", "Future Business Leaders Of America")
