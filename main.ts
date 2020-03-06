@@ -52,7 +52,7 @@ function vegito2 () {
 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 
 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 
 `, SpriteKind.Player)
-    text_list = ["Hello!", "I'm Vegito", "c", ""]
+    text_list = ["This", "is", "The Power", "Of", "VEGITO BLUE"]
     vegito.setPosition(15, 90)
     controller.moveSprite(vegito)
     scene.cameraFollowSprite(vegito)
@@ -131,8 +131,9 @@ function Gogeta2 () {
 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 
 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 
 `, SpriteKind.Enemy)
-    Gogeta.follow(vegito, 75)
     info.setLife(2200)
+    Gogeta.follow(vegito, 75)
+    pause(500)
 }
 controller.B.onEvent(ControllerButtonEvent.Pressed, function () {
     spirit_bomb()
@@ -328,7 +329,6 @@ function spirit_bomb () {
 sprites.onOverlap(SpriteKind.Projectile, SpriteKind.Enemy, function (sprite, otherSprite) {
     info.changeLifeBy(-1)
     projectile.destroy(effects.blizzard, 1000)
-    vegito.say("Yoshaaa")
 })
 controller.A.onEvent(ControllerButtonEvent.Pressed, function () {
     Projectile2()
@@ -346,6 +346,15 @@ game.splash("Use A and B to attack", "Future Business Leaders Of America")
 background()
 vegito2()
 Gogeta2()
+vegito.say(text_list[0], 250)
+pause(500)
+vegito.say(text_list[1], 250)
+pause(500)
+vegito.say(text_list[2], 250)
+pause(500)
+vegito.say(text_list[3], 500)
+pause(500)
+vegito.say(text_list[4], 500)
 if (info.life() >= 2000) {
     scene.setBackgroundImage(img`
 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 . . . . 
